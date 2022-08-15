@@ -1,0 +1,327 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "This is a server for www.localhost:4000. This is gaming website dashboard for create, read, update, and delete.",
+      "version": "1.0.0",
+      "title": "Binar Chapter 08: Wave 22",
+      "contact": {
+        "instagram": "yusufginanjarputra"
+      },
+      "license": {
+        "name": "MIT"
+      }   
+    },
+    "host": "localhost:4000",
+    "basePath": "/v1",
+    "tags": [
+      {
+        "name": "player",
+        "description": "Everything about players"
+      }
+    ],
+    "schemes": [
+      "https",
+      "http"
+    ],
+    "paths": {
+      "/": {
+        "get": {
+          "tags": [
+            "player"
+          ],
+          "summary": "Get all players list",
+          "description": "",
+          "consumes": [
+            "application/json",
+            "application/xml"
+          ],
+          "produces": [
+            "application/xml",
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "username",
+              "in": "query",
+              "description": "filter players by name",
+              "required": false,
+              "itemrs": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "email",
+              "in": "query",
+              "description": "filter players by email",
+              "required": false,
+              "itemrs": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "experience",
+              "in": "query",
+              "description": "filter players by experience",
+              "required": false,
+              "itemrs": {
+                "type": "integer"
+              }
+            },
+            {
+              "name": "lvl",
+              "in": "query",
+              "description": "filter players by level",
+              "required": false,
+              "itemrs": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Player"
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "player"
+          ],
+          "summary": "Create a new player",
+          "description": "New player that wants to added in database",
+          "operationId": "createPlayer",
+          "consumes": [
+            "application/json",
+            "application/xml"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "",
+              "required": true,
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Player"
+                }
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Player"
+                }
+              }
+            }
+          }
+        }
+      },
+      "/:id": {
+        "get": {
+          "tags": [
+            "player"
+          ],
+          "summary": "Finds player by id",
+          "description": "",
+          "operationId": "getPlayerById",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID of player than need to displayed",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Player"
+                }
+              }
+            },
+            "404": {
+              "description": "Not found",
+              "message": "Player with {ID} not found"
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "player"
+          ],
+          "summary": "Updates a player with by id",
+          "description": "",
+          "operationId": "updatePlayer",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID of player than need to be updated",
+              "required": true,
+              "type": "integer"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "description": "Updated content of the palyer",
+              "required": true,
+              "items": {
+                "$ref": "#/definitions/Player"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success: Player with id: {ID} successfully updated",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/Player"
+                }
+              }
+            },
+            "500": {
+              "description": "Failed to update"
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "player"
+          ],
+          "summary": "Delete a player with by id",
+          "description": "",
+          "operationId": "deletePlayer",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID of player that need to be deleted",
+              "required": true,
+              "type": "integer"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success: Player with id: {ID}, was deleted successfully"
+            },
+            "400": {
+              "description": "Cannot delete player"
+            }
+          }
+        }
+      },
+      "/exp/:id": {
+        "post": {
+          "tags": [
+            "player"
+          ],
+          "summary": "Update player experience",
+          "description": "",
+          "operationId": "updateExperience",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "description": "ID of player that need to be updated",
+              "required": true,
+              "type": "integer",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "description": "Updated experienced of the palyer",
+              "required": true,
+              "items": {
+                "$ref": "#/definitions/Player"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "successful operation"
+            },
+            "400": {
+              "description": "FAILED"
+            }
+          }
+        }
+      }
+    },
+    "securityDefinitions": {
+      "petstore_auth": {
+        "type": "oauth2",
+        "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+        "flow": "implicit",
+        "scopes": {
+          "write:pets": "modify pets in your account",
+          "read:pets": "read your pets"
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    },
+    "definitions": {
+      "Player":{
+        "type" : "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "example": "yusufginanjar"
+          },
+          "email": {
+            "type": "string",
+            "example": "yusuf16@example.com"
+          },
+          "password": {
+            "type": "string"
+          },
+          "experience": {
+            "type": "integer"
+          },
+          "lvl": {
+            "type": "integer"
+          }
+        },
+        "xml": {
+          "name": "Player"
+        }
+      }
+    }
+  }
